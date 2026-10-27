@@ -1,0 +1,781 @@
+Here are the three complete files:
+
+---
+
+**index.html**
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TicketHub – Discover Events. Book Your Experience.</title>
+  <meta name="description" content="TicketHub – Modern ticket booking platform for concerts, movies, sports, theatre, workshops and more." />
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet" />
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Toast Container -->
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <!-- ===================== NAVIGATION ===================== -->
+  <header class="header" id="header">
+    <nav class="navbar container">
+      <a href="#home" class="logo" id="logo">
+        <i class="fas fa-ticket-alt"></i>
+        <span>TicketHub</span>
+      </a>
+
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#home" class="nav-link active" data-section="home">Home</a></li>
+        <li><a href="#events" class="nav-link" data-section="events">Explore Events</a></li>
+        <li><a href="#bookings" class="nav-link" data-section="bookings">My Bookings</a></li>
+        <li><a href="#about" class="nav-link" data-section="about">About Us</a></li>
+        <li><a href="#contact" class="nav-link" data-section="contact">Contact</a></li>
+      </ul>
+
+      <div class="nav-actions" id="nav-actions">
+        <!-- Guest buttons -->
+        <div class="auth-buttons" id="auth-buttons">
+          <button class="btn btn-outline btn-sm" id="btn-login">Login</button>
+          <button class="btn btn-primary btn-sm" id="btn-register">Register</button>
+        </div>
+
+        <!-- Logged-in user menu -->
+        <div class="user-menu hidden" id="user-menu">
+          <button class="user-menu-btn" id="user-menu-btn" aria-expanded="false">
+            <div class="user-avatar" id="user-avatar">U</div>
+            <span class="user-name" id="nav-user-name">User</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="user-dropdown" id="user-dropdown">
+            <div class="dropdown-header">
+              <strong id="dropdown-user-name">User</strong>
+              <small id="dropdown-user-email">user@example.com</small>
+            </div>
+            <a href="#bookings" class="dropdown-item" data-section="bookings">
+              <i class="fas fa-ticket-alt"></i> My Bookings
+            </a>
+            <a href="#" class="dropdown-item" id="btn-admin-dashboard">
+              <i class="fas fa-tachometer-alt"></i> Admin Dashboard
+            </a>
+            <div class="dropdown-divider"></div>
+            <button class="dropdown-item logout-btn" id="btn-logout">
+              <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </nav>
+  </header>
+
+  <!-- ===================== MAIN CONTENT ===================== -->
+  <main>
+    <!-- ========== HOME SECTION ========== -->
+    <section id="home" class="section home-section">
+      <!-- Hero -->
+      <div class="hero">
+        <div class="hero-bg"></div>
+        <div class="container hero-content">
+          <h1 class="hero-title">Discover Events.<br />Book Your Experience.</h1>
+          <p class="hero-subtitle">
+            From electrifying concerts to blockbuster movies, thrilling sports and cultural festivals —
+            find and book tickets to the best events across India in seconds.
+          </p>
+          <div class="hero-search">
+            <div class="search-box">
+              <i class="fas fa-search"></i>
+              <input type="text" id="hero-search-input" placeholder="Search events, artists, venues or cities..." autocomplete="off" />
+              <button class="btn btn-primary" id="hero-search-btn">Search</button>
+            </div>
+          </div>
+          <div class="hero-actions">
+            <a href="#events" class="btn btn-primary btn-lg" data-section="events">
+              <i class="fas fa-compass"></i> Explore Events
+            </a>
+            <a href="#categories" class="btn btn-outline-light btn-lg">
+              <i class="fas fa-th-large"></i> Browse Categories
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats-bar">
+        <div class="container stats-grid">
+          <div class="stat-item">
+            <div class="stat-icon"><i class="fas fa-calendar-check"></i></div>
+            <div>
+              <h3 id="stat-events">48+</h3>
+              <p>Events</p>
+            </div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-icon"><i class="fas fa-users"></i></div>
+            <div>
+              <h3 id="stat-users">12,500+</h3>
+              <p>Happy Users</p>
+            </div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-icon"><i class="fas fa-ticket-alt"></i></div>
+            <div>
+              <h3 id="stat-tickets">85,000+</h3>
+              <p>Tickets Booked</p>
+            </div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-icon"><i class="fas fa-map-marker-alt"></i></div>
+            <div>
+              <h3>25+</h3>
+              <p>Cities</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Featured Events -->
+      <div class="container section-padding">
+        <div class="section-header">
+          <h2>Featured Events</h2>
+          <p>Hand-picked experiences you shouldn't miss</p>
+        </div>
+        <div class="events-grid" id="featured-events"></div>
+      </div>
+
+      <!-- Categories -->
+      <div id="categories" class="categories-section">
+        <div class="container section-padding">
+          <div class="section-header">
+            <h2>Popular Categories</h2>
+            <p>Explore events by your interest</p>
+          </div>
+          <div class="categories-grid" id="categories-grid">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Upcoming Events -->
+      <div class="container section-padding">
+        <div class="section-header">
+          <h2>Upcoming Events</h2>
+          <p>Don't miss these soon-to-happen experiences</p>
+          <a href="#events" class="view-all" data-section="events">View All <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="events-grid" id="upcoming-events"></div>
+      </div>
+
+      <!-- Promo Banner -->
+      <div class="promo-banner">
+        <div class="container promo-content">
+          <div class="promo-text">
+            <span class="promo-badge">Limited Offer</span>
+            <h2>Get 15% off your first booking</h2>
+            <p>Use code <strong>TICKETHUB15</strong> at checkout. Valid for new users only.</p>
+          </div>
+          <a href="#events" class="btn btn-light btn-lg" data-section="events">Book Now</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== EVENTS SECTION ========== -->
+    <section id="events" class="section events-section hidden">
+      <div class="container section-padding">
+        <div class="section-header">
+          <h2>Explore Events</h2>
+          <p>Find the perfect event for you</p>
+        </div>
+
+        <!-- Filters -->
+        <div class="filters-bar">
+          <div class="filter-group search-filter">
+            <i class="fas fa-search"></i>
+            <input type="text" id="search-input" placeholder="Search by title, artist or venue..." />
+          </div>
+
+          <div class="filter-group">
+            <select id="filter-category">
+              <option value="">All Categories</option>
+              <option value="Concerts">Concerts</option>
+              <option value="Movies">Movies</option>
+              <option value="Sports">Sports</option>
+              <option value="Theatre">Theatre</option>
+              <option value="Workshops">Workshops</option>
+              <option value="Conferences">Conferences</option>
+              <option value="Festivals">Festivals</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <select id="filter-city">
+              <option value="">All Cities</option>
+              <option value="Kochi">Kochi</option>
+              <option value="Kozhikode">Kozhikode</option>
+              <option value="Bengaluru">Bengaluru</option>
+              <option value="Chennai">Chennai</option>
+              <option value="Thrissur">Thrissur</option>
+              <option value="Hyderabad">Hyderabad</option>
+              <option value="Mumbai">Mumbai</option>
+              <option value="Delhi">Delhi</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <select id="filter-date">
+              <option value="">Any Date</option>
+              <option value="today">Today</option>
+              <option value="week">This Week</option>
+              <option value="month">This Month</option>
+              <option value="upcoming">Upcoming</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <select id="filter-price">
+              <option value="">All Prices</option>
+              <option value="free">Free</option>
+              <option value="paid">Paid</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <select id="sort-by">
+              <option value="date-asc">Date: Soonest</option>
+              <option value="date-desc">Date: Latest</option>
+              <option value="price-asc">Price: Low to High</option>
+              <option value="price-desc">Price: High to Low</option>
+              <option value="rating-desc">Rating: High to Low</option>
+            </select>
+          </div>
+
+          <button class="btn btn-outline btn-sm" id="btn-reset-filters">
+            <i class="fas fa-redo"></i> Reset
+          </button>
+        </div>
+
+        <div class="results-info">
+          <span id="results-count">Showing 0 events</span>
+        </div>
+
+        <div class="events-grid" id="events-grid">
+          <!-- Populated by JS -->
+        </div>
+
+        <div class="empty-state hidden" id="events-empty">
+          <i class="fas fa-calendar-times"></i>
+          <h3>No events found</h3>
+          <p>Try adjusting your filters or search terms.</p>
+          <button class="btn btn-primary" id="btn-clear-filters">Clear Filters</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== MY BOOKINGS SECTION ========== -->
+    <section id="bookings" class="section bookings-section hidden">
+      <div class="container section-padding">
+        <div class="section-header">
+          <h2>My Bookings</h2>
+          <p>View and manage your tickets</p>
+        </div>
+
+        <div class="bookings-filters">
+          <button class="chip active" data-status="all">All</button>
+          <button class="chip" data-status="upcoming">Upcoming</button>
+          <button class="chip" data-status="past">Past</button>
+          <button class="chip" data-status="cancelled">Cancelled</button>
+        </div>
+
+        <div class="bookings-list" id="bookings-list">
+          <!-- Populated by JS -->
+        </div>
+
+        <div class="empty-state hidden" id="bookings-empty">
+          <i class="fas fa-ticket-alt"></i>
+          <h3>No bookings yet</h3>
+          <p>You haven't booked any tickets. Explore events and grab your seats!</p>
+          <a href="#events" class="btn btn-primary" data-section="events">Explore Events</a>
+        </div>
+
+        <div class="login-prompt hidden" id="bookings-login-prompt">
+          <i class="fas fa-lock"></i>
+          <h3>Please login to view your bookings</h3>
+          <p>Sign in to see your ticket history and manage bookings.</p>
+          <button class="btn btn-primary" id="btn-login-from-bookings">Login / Register</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== ABOUT SECTION ========== -->
+    <section id="about" class="section about-section hidden">
+      <div class="container section-padding">
+        <div class="section-header">
+          <h2>About TicketHub</h2>
+          <p>Your trusted partner for unforgettable experiences</p>
+        </div>
+        <div class="about-content">
+          <div class="about-text">
+            <p>
+              TicketHub is a modern ticket booking platform designed to make discovering and booking events
+              effortless. Whether you're looking for a live concert, a blockbuster movie premiere, a thrilling
+              sports match, or a cultural festival, we bring the best experiences from across India right to
+              your fingertips.
+            </p>
+            <p>
+              Built with a focus on speed, simplicity and delightful design, TicketHub lets you search, filter,
+              book and manage tickets — all from a clean, responsive interface that works beautifully on any device.
+            </p>
+            <div class="about-features">
+              <div class="feature">
+                <i class="fas fa-bolt"></i>
+                <h4>Instant Booking</h4>
+                <p>Secure your seats in just a few clicks.</p>
+              </div>
+              <div class="feature">
+                <i class="fas fa-mobile-alt"></i>
+                <h4>Mobile Friendly</h4>
+                <p>Fully responsive design for every screen.</p>
+              </div>
+              <div class="feature">
+                <i class="fas fa-shield-alt"></i>
+                <h4>Demo Safe</h4>
+                <p>Frontend-only prototype with localStorage.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== CONTACT SECTION ========== -->
+    <section id="contact" class="section contact-section hidden">
+      <div class="container section-padding">
+        <div class="section-header">
+          <h2>Contact Us</h2>
+          <p>We'd love to hear from you</p>
+        </div>
+        <div class="contact-grid">
+          <div class="contact-info">
+            <div class="contact-item">
+              <i class="fas fa-envelope"></i>
+              <div>
+                <h4>Email</h4>
+                <p>support@tickethub.demo</p>
+              </div>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-phone"></i>
+              <div>
+                <h4>Phone</h4>
+                <p>+91 98765 43210</p>
+              </div>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-map-marker-alt"></i>
+              <div>
+                <h4>Office</h4>
+                <p>Infopark, Kochi, Kerala, India</p>
+              </div>
+            </div>
+            <div class="social-links">
+              <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+              <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+              <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+              <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+          </div>
+          <form class="contact-form" id="contact-form">
+            <div class="form-group">
+              <label for="contact-name">Full Name</label>
+              <input type="text" id="contact-name" required placeholder="Your name" />
+            </div>
+            <div class="form-group">
+              <label for="contact-email">Email</label>
+              <input type="email" id="contact-email" required placeholder="you@example.com" />
+            </div>
+            <div class="form-group">
+              <label for="contact-message">Message</label>
+              <textarea id="contact-message" rows="5" required placeholder="How can we help?"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== ADMIN DASHBOARD ========== -->
+    <section id="admin" class="section admin-section hidden">
+      <div class="container section-padding">
+        <div class="admin-header">
+          <div>
+            <h2>Admin Dashboard</h2>
+            <p>Demo administration panel – frontend only</p>
+          </div>
+          <button class="btn btn-outline" id="btn-exit-admin">
+            <i class="fas fa-arrow-left"></i> Back to Site
+          </button>
+        </div>
+
+        <!-- Overview Cards -->
+        <div class="admin-stats" id="admin-stats">
+          <div class="admin-stat-card">
+            <div class="stat-icon blue"><i class="fas fa-calendar"></i></div>
+            <div>
+              <h3 id="admin-total-events">0</h3>
+              <p>Total Events</p>
+            </div>
+          </div>
+          <div class="admin-stat-card">
+            <div class="stat-icon green"><i class="fas fa-ticket-alt"></i></div>
+            <div>
+              <h3 id="admin-total-bookings">0</h3>
+              <p>Total Bookings</p>
+            </div>
+          </div>
+          <div class="admin-stat-card">
+            <div class="stat-icon orange"><i class="fas fa-users"></i></div>
+            <div>
+              <h3 id="admin-tickets-sold">0</h3>
+              <p>Tickets Sold</p>
+            </div>
+          </div>
+          <div class="admin-stat-card">
+            <div class="stat-icon purple"><i class="fas fa-rupee-sign"></i></div>
+            <div>
+              <h3 id="admin-revenue">₹0</h3>
+              <p>Simulated Revenue</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="admin-tabs">
+          <button class="admin-tab active" data-tab="events-mgmt">Events</button>
+          <button class="admin-tab" data-tab="bookings-mgmt">Bookings</button>
+          <button class="admin-tab" data-tab="add-event">Add Event</button>
+        </div>
+
+        <!-- Events Management -->
+        <div class="admin-panel" id="events-mgmt">
+          <div class="admin-table-wrapper">
+            <table class="admin-table" id="admin-events-table">
+              <thead>
+                <tr>
+                  <th>Event</th>
+                  <th>Category</th>
+                  <th>Date</th>
+                  <th>City</th>
+                  <th>Price</th>
+                  <th>Available</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="admin-events-body"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Bookings Management -->
+        <div class="admin-panel hidden" id="bookings-mgmt">
+          <div class="admin-filters">
+            <input type="text" id="admin-booking-search" placeholder="Search by booking ID, user or event..." />
+          </div>
+          <div class="admin-table-wrapper">
+            <table class="admin-table" id="admin-bookings-table">
+              <thead>
+                <tr>
+                  <th>Booking ID</th>
+                  <th>User</th>
+                  <th>Event</th>
+                  <th>Tickets</th>
+                  <th>Amount</th>
+                  <th>Status</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
+              <tbody id="admin-bookings-body"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Add / Edit Event Form -->
+        <div class="admin-panel hidden" id="add-event">
+          <form id="event-form" class="event-form">
+            <input type="hidden" id="edit-event-id" />
+            <div class="form-row">
+              <div class="form-group">
+                <label for="event-title">Event Title *</label>
+                <input type="text" id="event-title" required />
+              </div>
+              <div class="form-group">
+                <label for="event-category">Category *</label>
+                <select id="event-category" required>
+                  <option value="Concerts">Concerts</option>
+                  <option value="Movies">Movies</option>
+                  <option value="Sports">Sports</option>
+                  <option value="Theatre">Theatre</option>
+                  <option value="Workshops">Workshops</option>
+                  <option value="Conferences">Conferences</option>
+                  <option value="Festivals">Festivals</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="event-date">Date *</label>
+                <input type="date" id="event-date" required />
+              </div>
+              <div class="form-group">
+                <label for="event-time">Time *</label>
+                <input type="time" id="event-time" required />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="event-venue">Venue *</label>
+                <input type="text" id="event-venue" required />
+              </div>
+              <div class="form-group">
+                <label for="event-city">City *</label>
+                <input type="text" id="event-city" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="event-description">Description *</label>
+              <textarea id="event-description" rows="3" required></textarea>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="event-price">Base Price (₹) *</label>
+                <input type="number" id="event-price" min="0" required />
+              </div>
+              <div class="form-group">
+                <label for="event-tickets">Total Tickets *</label>
+                <input type="number" id="event-tickets" min="1" required />
+              </div>
+              <div class="form-group">
+                <label for="event-rating">Rating (1-5)</label>
+                <input type="number" id="event-rating" min="1" max="5" step="0.1" value="4.5" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="event-image">Image URL</label>
+              <input type="url" id="event-image" placeholder="https://..." />
+            </div>
+            <div class="form-group checkbox-group">
+              <label>
+                <input type="checkbox" id="event-featured" /> Featured Event
+              </label>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary" id="btn-save-event">Save Event</button>
+              <button type="button" class="btn btn-outline" id="btn-cancel-edit">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#home" class="logo">
+            <i class="fas fa-ticket-alt"></i>
+            <span>TicketHub</span>
+          </a>
+          <p>Discover and book the best events across India. Concerts, movies, sports, theatre and more.</p>
+          <div class="social-links">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+        <div class="footer-links">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#home" data-section="home">Home</a></li>
+            <li><a href="#events" data-section="events">Explore Events</a></li>
+            <li><a href="#bookings" data-section="bookings">My Bookings</a></li>
+            <li><a href="#about" data-section="about">About Us</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4>Categories</h4>
+          <ul>
+            <li><a href="#events" data-category="Concerts">Concerts</a></li>
+            <li><a href="#events" data-category="Movies">Movies</a></li>
+            <li><a href="#events" data-category="Sports">Sports</a></li>
+            <li><a href="#events" data-category="Festivals">Festivals</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="#contact" data-section="contact">Contact</a></li>
+            <li><a href="#" id="btn-reset-demo">Reset Demo Data</a></li>
+            <li><a href="#">Help Center</a></li>
+            <li><a href="#">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 TicketHub. This is a frontend demo application. All data is simulated.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===================== MODALS ===================== -->
+
+  <!-- Auth Modal -->
+  <div class="modal" id="auth-modal" role="dialog" aria-modal="true" aria-labelledby="auth-title">
+    <div class="modal-backdrop" data-close="auth-modal"></div>
+    <div class="modal-content auth-modal-content">
+      <button class="modal-close" data-close="auth-modal" aria-label="Close">&times;</button>
+      
+      <div class="auth-tabs">
+        <button class="auth-tab active" data-auth="login">Login</button>
+        <button class="auth-tab" data-auth="register">Register</button>
+      </div>
+
+      <!-- Login Form -->
+      <form id="login-form" class="auth-form">
+        <h3 id="auth-title">Welcome Back</h3>
+        <p class="auth-subtitle">Sign in to manage your bookings</p>
+        
+        <div class="form-group">
+          <label for="login-email">Email</label>
+          <input type="email" id="login-email" required placeholder="you@example.com" />
+          <span class="error-msg" id="login-email-error"></span>
+        </div>
+        <div class="form-group">
+          <label for="login-password">Password</label>
+          <input type="password" id="login-password" required placeholder="••••••••" />
+          <span class="error-msg" id="login-password-error"></span>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Login</button>
+        
+        <div class="demo-accounts">
+          <p>Demo Accounts:</p>
+          <button type="button" class="btn btn-sm btn-outline demo-login" data-email="user@tickethub.demo" data-pass="User@123">
+            User Demo
+          </button>
+          <button type="button" class="btn btn-sm btn-outline demo-login" data-email="admin@tickethub.demo" data-pass="Admin@123">
+            Admin Demo
+          </button>
+        </div>
+      </form>
+
+      <!-- Register Form -->
+      <form id="register-form" class="auth-form hidden">
+        <h3>Create Account</h3>
+        <p class="auth-subtitle">Join TicketHub to start booking</p>
+        
+        <div class="form-group">
+          <label for="reg-name">Full Name</label>
+          <input type="text" id="reg-name" required placeholder="John Doe" />
+          <span class="error-msg" id="reg-name-error"></span>
+        </div>
+        <div class="form-group">
+          <label for="reg-email">Email</label>
+          <input type="email" id="reg-email" required placeholder="you@example.com" />
+          <span class="error-msg" id="reg-email-error"></span>
+        </div>
+        <div class="form-group">
+          <label for="reg-phone">Phone</label>
+          <input type="tel" id="reg-phone" required placeholder="+91 98765 43210" />
+          <span class="error-msg" id="reg-phone-error"></span>
+        </div>
+        <div class="form-group">
+          <label for="reg-password">Password</label>
+          <input type="password" id="reg-password" required placeholder="Min 6 characters" />
+          <span class="error-msg" id="reg-password-error"></span>
+        </div>
+        <div class="form-group">
+          <label for="reg-confirm">Confirm Password</label>
+          <input type="password" id="reg-confirm" required placeholder="Re-enter password" />
+          <span class="error-msg" id="reg-confirm-error"></span>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Create Account</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Event Details Modal -->
+  <div class="modal" id="event-modal" role="dialog" aria-modal="true">
+    <div class="modal-backdrop" data-close="event-modal"></div>
+    <div class="modal-content event-modal-content">
+      <button class="modal-close" data-close="event-modal" aria-label="Close">&times;</button>
+      <div id="event-modal-body">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Booking Modal -->
+  <div class="modal" id="booking-modal" role="dialog" aria-modal="true">
+    <div class="modal-backdrop" data-close="booking-modal"></div>
+    <div class="modal-content booking-modal-content">
+      <button class="modal-close" data-close="booking-modal" aria-label="Close">&times;</button>
+      <div id="booking-modal-body">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Ticket Modal (Digital Ticket) -->
+  <div class="modal" id="ticket-modal" role="dialog" aria-modal="true">
+    <div class="modal-backdrop" data-close="ticket-modal"></div>
+    <div class="modal-content ticket-modal-content">
+      <button class="modal-close" data-close="ticket-modal" aria-label="Close">&times;</button>
+      <div id="ticket-modal-body">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Confirmation Modal -->
+  <div class="modal" id="confirm-modal" role="dialog" aria-modal="true">
+    <div class="modal-backdrop" data-close="confirm-modal"></div>
+    <div class="modal-content confirm-modal-content">
+      <div id="confirm-modal-body">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading Overlay -->
+  <div class="loading-overlay hidden" id="loading-overlay">
+    <div class="spinner"></div>
+    <p>Please wait...</p>
+  </div>
+
+  <!-- QR Code Library (CDN) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  
+  <!-- Main Script -->
+  <script src="script.js"></script>
+</body>
+</html>
+```
+
+The CSS and JS files are large. Reply with **“css”** or **“js”** and I’ll paste that file next in full.
